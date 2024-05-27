@@ -19,8 +19,8 @@ spec:
     readOnly: false
     volumeHandle: airflow-logs-1
     volumeAttributes:
-      resourceGroup: examplerg
-      storageAccount: exampleairflowsa
+      resourceGroup: arionairflowrg
+      storageAccount: arionairflowairflowsa
       containerName: airflow-logs
     nodeStageSecretRef:
       name: storage-account-credentials
