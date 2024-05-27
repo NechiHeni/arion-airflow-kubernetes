@@ -2,7 +2,7 @@ terraform {
   required_providers {
     azurerm = {
       source  = "hashicorp/azurerm"
-      version = "=3.70.0"
+      version = ">=3.92.0"
     }
   }
 }
@@ -50,6 +50,7 @@ resource "azurerm_container_registry" "acr" {
 }
 
 resource "azurerm_role_assignment" "main" {
+  depends_on           = [azurerm_kubernetes_cluster.main, azurerm_container_registry.acr]
   principal_id         = azurerm_kubernetes_cluster.main.kubelet_identity[0].object_id
   role_definition_name = "AcrPull"
   scope                = azurerm_container_registry.acr.id
@@ -72,6 +73,7 @@ resource "azurerm_storage_container" "airflow_logs" {
 }
 
 resource "azurerm_storage_management_policy" "prune_logs" {
+  depends_on         = [azurerm_storage_account.airflow, azurerm_storage_container.airflow_logs]
   storage_account_id = azurerm_storage_account.airflow.id
 
   rule {
