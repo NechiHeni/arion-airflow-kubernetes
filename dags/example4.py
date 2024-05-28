@@ -1,7 +1,7 @@
 from pendulum import datetime
 
 from airflow.decorators import dag 
-
+import os
 from airflow import DAG
 from cegid_sftp.hooks.sftp import SFTPHook
 from airflow.decorators import task ,task_group
@@ -76,7 +76,13 @@ def purshaseOrderProposalV2():
         @task(task_id="load_expectation_suite")
         def load_schema():
             # Load the expectation suite from JSON file
-            with open('/home/chames/airflow/schema/schema.json', 'r') as file:
+            # Get the absolute path of the current file
+            file_path = os.path.abspath(__file__)
+            # Get the root directory of the current file
+            root_path = os.path.dirname(file_path)
+
+            logging.info(root_path)
+            with open(root_path + "/" + 'schema.json', 'r') as file:
                 expectation_suite = json.load(file)
             return expectation_suite
 
