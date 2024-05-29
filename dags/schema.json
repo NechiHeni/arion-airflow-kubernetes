@@ -1,0 +1,40 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "type": "object",
+
+        "properties": {
+            "OUID": {"anyOf" : [{ "type": "string" } ,{ "type": "number" }  ]},
+            "ORGID": {},
+            "REQ_ID": {},
+            "REQ_DATE": { "type" : "string" },
+            "REQ_USER": {},
+            "SUP_CODE": {},
+            "SUP_SITE": {},
+            "REQ_LINE_NO": {},
+            "ITEM_ID": {},
+            "ITEM_CODE": {},
+            "UOM_CODE": {},
+            "QUANTITY": {},
+            "ERPFLAG": {},
+            "TOTAL_QUANTITY": {}
+       
+        },
+        "required": [
+            "OUID",
+            "ORGID",
+            "REQ_ID",
+            "REQ_DATE",
+            "REQ_USER",
+            "SUP_CODE",
+            "SUP_SITE",
+            "REQ_LINE_NO",
+            "ITEM_ID",
+            "ITEM_CODE",
+            "UOM_CODE",
+            "QUANTITY",
+            "ERPFLAG",
+            "TOTAL_QUANTITY"
+  
+        ]
+   
+}
