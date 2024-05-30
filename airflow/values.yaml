@@ -15,6 +15,8 @@ env:
 extraEnv: |
   - name: AIRFLOW__CORE__DEFAULT_TIMEZONE
     value: 'Europe/Amsterdam'
+  - name: AIRFLOW__CORE__ENABLE_XCOM_PICKLING
+    value: 'True'
 
 # Configuration for postgresql subchart
 # Not recommended for production! Instead, spin up your own Postgresql server and use the `data` attribute in this
@@ -57,3 +59,16 @@ scheduler:
 workers:
   logGroomerSidecar:
     enabled: false
+
+images:
+  airflow:
+    repository: henidevops/airflow-cegid
+    tag: latest
+    pullPolicy: Always
+  # To avoid images with user code, you can turn this to 'true' and
+  # all the 'run-airflow-migrations' and 'wait-for-airflow-migrations' containers/jobs
+  # will use the images from 'defaultAirflowRepository:defaultAirflowTag' values
+  # to run and wait for DB migrations .
+  useDefaultImageForMigration: true
+  # timeout (in seconds) for airflow-migrations to complete
+  migrationsWaitTimeout: 300
