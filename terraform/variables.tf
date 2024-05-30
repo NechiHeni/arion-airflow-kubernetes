@@ -7,3 +7,7 @@ variable "location" {
   type        = string
   description = "location for the resources"
 }
+variable "github_token" {
+  type        = string
+  description = "token for github"
+}
