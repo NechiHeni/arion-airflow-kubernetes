@@ -38,16 +38,16 @@ jobs:
       uses: hashicorp/setup-terraform@v1
       with:
         terraform_version: 1.8.5
-        
-    - name: Access terraform directory
-      run: cd terraform
 
     - name: Terraform Init
       run: terraform init
+      working-directory: ./terraform
 
     - name: Terraform Plan
       run: terraform plan
+      working-directory: ./terraform
 
     - name: Terraform Apply
       if: github.ref == 'refs/heads/main'
       run: terraform apply -auto-approve
+      working-directory: ./terraform
