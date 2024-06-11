@@ -1,0 +1,50 @@
+name: deploy
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  terraform:
+    runs-on: ubuntu-latest
+    env:
+      TF_VAR_github_token: ${{ secrets.GITHUB_TOKEN }}
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: '3.8'
+
+    - name: Configure Azure credentials
+      uses: azure/login@v2
+      with:
+        creds: ${{ secrets.AZURE_CREDENTIALS_JSON }}
+
+    - name: Extract credentials and set environment variables
+      run: |
+        echo "${{ secrets.AZURE_CREDENTIALS_JSON }}" > credentials.json
+        export ARM_CLIENT_ID=$(python -c 'import json,sys;obj=json.load(open("credentials.json"));print(obj["appId"])')
+        export ARM_CLIENT_SECRET=$(python -c 'import json,sys;obj=json.load(open("credentials.json"));print(obj["password"])')
+        export ARM_TENANT_ID=$(python -c 'import json,sys;obj=json.load(open("credentials.json"));print(obj["tenant"])')
+        export ARM_SUBSCRIPTION_ID=$(az account show --query id -o tsv)
+
+
+    - name: Setup Terraform
+      uses: hashicorp/setup-terraform@v1
+      with:
+        terraform_version: 1.8.5
+
+    - name: Terraform Init
+      run: terraform init
+
+    - name: Terraform Plan
+      run: terraform plan
+
+    - name: Terraform Apply
+      if: github.ref == 'refs/heads/main'
+      run: terraform apply -auto-approve
