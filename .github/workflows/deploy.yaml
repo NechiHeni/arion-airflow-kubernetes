@@ -8,17 +8,10 @@ on:
 jobs:
   terraform:
     runs-on: ubuntu-latest
-    env:
-      TF_VAR_github_token: ${{ secrets.GITHUB_TOKEN }}
 
     steps:
     - name: Checkout repository
       uses: actions/checkout@v2
-
-    - name: Set up Python
-      uses: actions/setup-python@v2
-      with:
-        python-version: '3.8'
 
     - name: Configure Azure credentials
       uses: azure/login@v2
