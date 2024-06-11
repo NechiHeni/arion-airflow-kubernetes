@@ -28,10 +28,10 @@ jobs:
     - name: Extract credentials and set environment variables
       run: |
         echo "${{ secrets.AZURE_CREDENTIALS_JSON }}" > credentials.json
-        export ARM_CLIENT_ID=$(python -c 'import json,sys;obj=json.load(open("credentials.json"));print(obj["appId"])')
-        export ARM_CLIENT_SECRET=$(python -c 'import json,sys;obj=json.load(open("credentials.json"));print(obj["password"])')
-        export ARM_TENANT_ID=$(python -c 'import json,sys;obj=json.load(open("credentials.json"));print(obj["tenant"])')
-        export ARM_SUBSCRIPTION_ID=$(az account show --query id -o tsv)
+        export ARM_CLIENT_ID=$(python -c 'import json,sys;obj=json.load(open("credentials.json"));print(obj["clientId"])')
+        export ARM_CLIENT_SECRET=$(python -c 'import json,sys;obj=json.load(open("credentials.json"));print(obj["clientSecret"])')
+        export ARM_TENANT_ID=$(python -c 'import json,sys;obj=json.load(open("credentials.json"));print(obj["tenantId"])')
+        export ARM_SUBSCRIPTION_ID=$(python -c 'import json,sys;obj=json.load(open("credentials.json"));print(obj["subscriptionId"])')
 
 
     - name: Setup Terraform
