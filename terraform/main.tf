@@ -126,10 +126,8 @@ resource "azurerm_storage_management_policy" "prune_logs" {
 resource "tls_private_key" "repository_deploy_private_key" {
   algorithm = "RSA"
   rsa_bits  = 4096
-
 }
 
-# Add the ssh key as a deploy key
 resource "github_repository_deploy_key" "repository_deploy_key" {
   title      = "Repository Deploy Key"
   repository = "arion-airflow-kubernetes"
