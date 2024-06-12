@@ -8,6 +8,8 @@ on:
 jobs:
   terraform:
     runs-on: ubuntu-latest
+    env:
+        TF_VAR_github_token: ${{ secrets.GITHUB_TOKEN }}
 
     steps:
     - name: Checkout repository
