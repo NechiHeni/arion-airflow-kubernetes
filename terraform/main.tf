@@ -40,7 +40,7 @@ provider "helm" {
   }
 }
 provider "github" {
-  token = var.TF_VAR_github_token
+  token = var.github_token
 }
 
 resource "azurerm_resource_group" "rg" {
