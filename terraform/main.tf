@@ -74,20 +74,6 @@ resource "azurerm_kubernetes_cluster" "main" {
   }
 }
 
-# resource "azurerm_container_registry" "acr" {
-#   name                = "${var.app_name}acr"
-#   resource_group_name = azurerm_resource_group.rg.name
-#   location            = var.location
-#   sku                 = "Standard"
-#   admin_enabled       = true
-# }
-
-# resource "azurerm_role_assignment" "main" {
-#   depends_on           = [azurerm_kubernetes_cluster.main, azurerm_container_registry.acr]
-#   principal_id         = azurerm_kubernetes_cluster.main.kubelet_identity[0].object_id
-#   role_definition_name = "AcrPull"
-#   scope                = azurerm_container_registry.acr.id
-# }
 
 resource "azurerm_storage_account" "airflow" {
   name                     = "${var.app_name}airflowsa"
@@ -222,8 +208,6 @@ resource "kubernetes_persistent_volume_claim" "pvc_airflow_logs" {
     volume_name = kubernetes_persistent_volume.pv_airflow_logs.metadata[0].name
   }
 }
-
-
 
 resource "helm_release" "airflow" {
   depends_on = [azurerm_kubernetes_cluster.main, kubernetes_persistent_volume_claim.pvc_airflow_logs, kubernetes_persistent_volume.pv_airflow_logs]
