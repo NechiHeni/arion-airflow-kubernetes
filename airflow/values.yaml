@@ -71,4 +71,4 @@ images:
   # to run and wait for DB migrations .
   useDefaultImageForMigration: true
   # timeout (in seconds) for airflow-migrations to complete
-  migrationsWaitTimeout: 300
+  migrationsWaitTimeout: 3000
