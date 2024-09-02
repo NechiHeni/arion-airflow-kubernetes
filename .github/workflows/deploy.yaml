@@ -6,7 +6,7 @@ on:
       - main
 
 jobs:
-  terraform:
+  deploy-ariflow:
     runs-on: ubuntu-latest
     env:
         TF_VAR_github_token: ${{ secrets.TOKEN_GITHUB_TERRAFORM }}
@@ -28,7 +28,7 @@ jobs:
         export ARM_TENANT_ID=$(python -c 'import json,sys;obj=json.load(open("credentials.json"));print(obj["tenantId"])')
         export ARM_SUBSCRIPTION_ID=$(python -c 'import json,sys;obj=json.load(open("credentials.json"));print(obj["subscriptionId"])')
 
-
+      
     - name: Setup Terraform
       uses: hashicorp/setup-terraform@v1
       with:
