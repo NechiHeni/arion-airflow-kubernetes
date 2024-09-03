@@ -1,3 +1,3 @@
 app_name = "arionairflow"
-location = "East US"
+location = "France Central"
 
