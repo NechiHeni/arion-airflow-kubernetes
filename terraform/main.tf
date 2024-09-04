@@ -74,7 +74,7 @@ resource "azurerm_kubernetes_cluster" "main" {
     load_balancer_sku = "standard"
   }
 }
-
+  
 
 resource "azurerm_storage_account" "airflow" {
   name                     = "${var.app_name}airflowsa"
