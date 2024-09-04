@@ -57,7 +57,7 @@ resource "azurerm_kubernetes_cluster" "main" {
 
   default_node_pool {
     name       = "default"
-    node_count = 1
+    node_count = 2
     vm_size    = "Standard_B1ms"
   }
    
@@ -129,7 +129,7 @@ resource "kubernetes_namespace" "airflow" {
     name = "airflow"
   }
 }
-
+    
 resource "kubernetes_secret" "airflow_git_ssh" {
   depends_on = [azurerm_kubernetes_cluster.main]
   metadata {
