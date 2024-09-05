@@ -109,7 +109,7 @@ def purshaseOrderProposalV2():
                 
                 
 
-                    validation_result.append({"filename" : df["dataframe"] ,"validated_records" : validated_records, "invalid_records" : invalid_records})
+                    validation_result.append({"filename" : df["filename"] ,"validated_records" : validated_records, "invalid_records" : invalid_records})
             return validation_result
             
 
