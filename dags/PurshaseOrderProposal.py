@@ -60,7 +60,7 @@ def purshaseOrderProposalV2():
         df = pd.read_csv(root_path + "/" + 'PurchaseOrderProposalLocal_20240109_1900_36463.csv')
 
 
-        df = df.drop(columns=['Status'])
+        # df = df.drop(columns=['Status'])
 
         
         dfs_downloaded.append({"dataframe" : df , "filename" : "PurchaseOrderProposalLocal_20240109_1900_36463.csv"})
