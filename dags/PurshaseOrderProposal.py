@@ -50,22 +50,20 @@ def purshaseOrderProposalV2():
     """
 
     @task(task_id = "get_files_from_sftp")
-    def task_get_files_from_sftp():
-        sftp_hook = SFTPHook(ssh_conn_id="cegid_sftp")
+    def task_get_files():
+        root_path = os.path.dirname(file_path)
 
-        # Define your regex expression to match the files you want to download
-        downloaded_files = sftp_hook.download_files_matching_regex("get" , r"PurchaseOrderProposalLocal.*?\.csv")
-        logging.info(downloaded_files)
-        dfs_downloaded = []
-        for file in downloaded_files:
-            logging.info(file)
-            print(file)
 
-            df = pd.read_csv(file["memory_object"],sep=';')
-            df = df.drop(columns=['Status'])
 
-            
-            dfs_downloaded.append({"dataframe" : df , "filename" : file["filename"]})
+
+        df = pd.read_csv(root_path + "/" + 'PurchaseOrderProposalLocal_20240109_1900_36463.csv')
+
+
+        df = df.drop(columns=['Status'])
+
+        
+        dfs_downloaded.append({"dataframe" : df , "filename" : "PurchaseOrderProposalLocal_20240109_1900_36463.csv"})
+        print(df)
 
         # # Return the dictionary containing file contents
         return dfs_downloaded
@@ -209,7 +207,7 @@ def purshaseOrderProposalV2():
          
 
     # Define the task dependencies
-    downloaded_files = task_get_files_from_sftp() 
+    downloaded_files = task_get_files() 
     validate = validate_dfs(downloaded_files)
     serving = serving_destination(validate)
 
