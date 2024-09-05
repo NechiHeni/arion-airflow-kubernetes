@@ -53,7 +53,7 @@ def purshaseOrderProposalV2():
     def task_get_files():
         file_path = os.path.abspath(__file__)
         root_path = os.path.dirname(file_path)
-
+        dfs_downloaded = []
 
 
 
